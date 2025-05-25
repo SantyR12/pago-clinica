@@ -1,7 +1,7 @@
 package com.example.pagoclinica.pagoclinica.controller;
 
 import com.example.pagoclinica.pagoclinica.domain.dto.CitaDTO;
-import com.example.pagoclinica.pagoclinica.domain.dto.EstadoCitaRequestDTO;
+import com.example.pagoclinica.pagoclinica.domain.dto.EstadoPagoCitaRequestDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PagoDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PacienteDTO; 
 import com.example.pagoclinica.pagoclinica.domain.service.PayClinicalService;
@@ -103,8 +103,8 @@ public class PagoClinicaController {
     @PutMapping("/citas-externas/{citaId}/estado")
     public ResponseEntity<CitaDTO> actualizarEstadoCitaExterna(
             @PathVariable Long citaId,
-            @RequestBody EstadoCitaRequestDTO estadoRequest) {
-        CitaDTO citaActualizada = payClinicalService.actualizarEstadoCitaExterna(citaId, estadoRequest);
+            @RequestBody EstadoPagoCitaRequestDTO estadoPagoRequest) {
+        CitaDTO citaActualizada = payClinicalService.actualizarEstadoCitaExterna(citaId, estadoPagoRequest);
         return ResponseEntity.ok(citaActualizada);
     }
     @GetMapping("/pacientes-externos")

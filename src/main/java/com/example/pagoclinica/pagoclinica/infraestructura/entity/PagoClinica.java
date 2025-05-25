@@ -29,10 +29,12 @@ public class PagoClinica {
     @Column(name = "monto" ,nullable = false)
     private BigDecimal monto;
 
-    @Column(name = "estado" ,nullable = false)
+    @Column(name = "estado" )
     private String estado;
 
     @Column(name = "referencia" ,nullable = false)
     private String referencia;
+    @Column(name = "estadoPago" ,nullable = false)
+    private String estadoPago;
 
 }

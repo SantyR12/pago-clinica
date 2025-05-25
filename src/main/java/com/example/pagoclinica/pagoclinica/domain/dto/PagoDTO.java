@@ -12,6 +12,7 @@ public class PagoDTO {
     private BigDecimal monto;
     private String estado;
     private String referencia;
+    private String estadoPago;
 
     public Long getId() {
         return id;
@@ -60,6 +61,9 @@ public class PagoDTO {
     }
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+    }
+    public void setEstadoPago(String estadoPago) {
+        this.estado = estadoPago;
     }
 
 }

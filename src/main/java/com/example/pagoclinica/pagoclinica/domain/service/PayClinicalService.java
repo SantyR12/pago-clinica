@@ -1,7 +1,7 @@
 package com.example.pagoclinica.pagoclinica.domain.service;
 
 import com.example.pagoclinica.pagoclinica.domain.dto.CitaDTO;
-import com.example.pagoclinica.pagoclinica.domain.dto.EstadoCitaRequestDTO;
+import com.example.pagoclinica.pagoclinica.domain.dto.EstadoPagoCitaRequestDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PagoDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PacienteDTO;
 import com.example.pagoclinica.pagoclinica.infraestructura.client.CitaCliente;
@@ -44,12 +44,12 @@ public class PayClinicalService {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El paciente con ID " + payClinicalDTO.getPacienteId() + " asociado al pago no existe.");
                 }
 
-                 if (!cita.getPacienteId().equals(payClinicalDTO.getPacienteId())) {
+                if (!cita.getPacienteId().equals(payClinicalDTO.getPacienteId())) {
                     System.err.println("ADVERTENCIA: El pacienteId del pago (" + payClinicalDTO.getPacienteId() +
-                                       ") no coincide con el pacienteId (" + cita.getPacienteId() + ") de la cita (" + cita.getId() + ").");
+                            ") no coincide con el pacienteId (" + cita.getPacienteId() + ") de la cita (" + cita.getId() + ").");
                                     }
             } else {
-                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El pacienteId es requerido en el pago.");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El pacienteId es requerido en el pago.");
             }
 
         } catch (ResponseStatusException rse) {
@@ -63,7 +63,7 @@ public class PayClinicalService {
             }
 
             if (fe.status() == 404) {
-                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No se pudo verificar el recurso en el servicio de " + serviceName + ". ID: " + (serviceName.equals("Citas") ? payClinicalDTO.getCitaId() : payClinicalDTO.getPacienteId()) + ". El recurso no fue encontrado (404).", fe);
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No se pudo verificar el recurso en el servicio de " + serviceName + ". ID: " + (serviceName.equals("Citas") ? payClinicalDTO.getCitaId() : payClinicalDTO.getPacienteId()) + ". El recurso no fue encontrado (404).", fe);
             } else {
                 throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Error de comunicación con el servicio de " + serviceName + ". Detalles: " + fe.getMessage(), fe);
             }
@@ -136,7 +136,7 @@ public class PayClinicalService {
         PagoDTO pagoProcesado = pagoClinicaImpl.procesarPago(id, metodoPago);
         if (pagoProcesado != null && "Pagado".equalsIgnoreCase(pagoProcesado.getEstado())) {
             try {
-                EstadoCitaRequestDTO estadoRequest = new EstadoCitaRequestDTO("Pagado");
+                EstadoPagoCitaRequestDTO estadoRequest = new EstadoPagoCitaRequestDTO("Pagado");
                 citaCliente.updateAppointmentStatus(pagoProcesado.getCitaId(), estadoRequest);
             } catch (Exception e) {
                 System.err.println("Pago procesado (ID: " + pagoProcesado.getId() + ") pero falló la actualización del estado de la cita (ID: " + pagoProcesado.getCitaId() + "): " + e.getMessage());
@@ -168,15 +168,15 @@ public class PayClinicalService {
         }
     }
 
-    public CitaDTO actualizarEstadoCitaExterna(Long citaId, EstadoCitaRequestDTO estadoRequest) {
-        String nuevoEstado = estadoRequest.getEstado();
+    public CitaDTO actualizarEstadoCitaExterna(Long citaId, EstadoPagoCitaRequestDTO estadoRequest) {
+        String nuevoEstado = estadoRequest.getEstadoPago();
         if (!"Pagado".equalsIgnoreCase(nuevoEstado) && !"Anulado".equalsIgnoreCase(nuevoEstado) && !"Pendiente".equalsIgnoreCase(nuevoEstado)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estado '" + nuevoEstado + "' no válido. Los estados permitidos son 'Pagado', 'Anulado', 'Pendiente'.");
         }
         try {
             CitaDTO citaExistente = citaCliente.getAppointmentById(citaId); 
-             if (citaExistente == null) { 
-                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la cita con ID: " + citaId + " para actualizar.");
+            if (citaExistente == null) { 
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la cita con ID: " + citaId + " para actualizar.");
             }
             return citaCliente.updateAppointmentStatus(citaId, estadoRequest);
         } catch (feign.FeignException.NotFound fe) {
