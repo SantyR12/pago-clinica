@@ -2,7 +2,9 @@ package com.example.pagoclinica.pagoclinica.domain.service;
 
 import com.example.pagoclinica.pagoclinica.domain.dto.CitaDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.EstadoPagoCitaRequestDTO;
+import com.example.pagoclinica.pagoclinica.domain.dto.IngresosPorFechaDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PagoDTO;
+import com.example.pagoclinica.pagoclinica.domain.dto.ResumenDiarioIngresosDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PacienteDTO;
 import com.example.pagoclinica.pagoclinica.infraestructura.client.CitaCliente;
 import com.example.pagoclinica.pagoclinica.infraestructura.client.PacienteCliente;
@@ -29,6 +31,10 @@ public class PayClinicalService {
 
     @Autowired
     private PacienteCliente pacienteCliente;
+
+    public List<ResumenDiarioIngresosDTO> obtenerResumenIngresosDiarios() {
+        return pagoClinicaImpl.obtenerResumenIngresosDiarios();
+    }
 
     public PagoDTO registrarPago(PagoDTO payClinicalDTO) {
 
@@ -208,4 +214,17 @@ public class PayClinicalService {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Error al obtener el paciente externo con ID " + id + ": " + e.getMessage(), e);
         }
     }
+
+    public IngresosPorFechaDTO obtenerTotalIngresosPorFechaEspecifica(LocalDate fecha) {
+        if (fecha == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La fecha es requerida para la consulta de ingresos.");
+        }
+        BigDecimal totalIngresos = pagoClinicaImpl.obtenerTotalIngresosPorFecha(fecha);
+        if (totalIngresos == null) {
+            totalIngresos = BigDecimal.ZERO;
+        }
+        return new IngresosPorFechaDTO(fecha, totalIngresos);
+    }
+
+    
 }

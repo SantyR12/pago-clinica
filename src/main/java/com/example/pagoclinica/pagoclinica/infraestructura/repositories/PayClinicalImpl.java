@@ -1,6 +1,7 @@
 package com.example.pagoclinica.pagoclinica.infraestructura.repositories;
 
 import com.example.pagoclinica.pagoclinica.domain.dto.PagoDTO;
+import com.example.pagoclinica.pagoclinica.domain.dto.ResumenDiarioIngresosDTO;
 import com.example.pagoclinica.pagoclinica.domain.repository.IPayClinical;
 import com.example.pagoclinica.pagoclinica.infraestructura.crud.PagoRepository;
 import com.example.pagoclinica.pagoclinica.infraestructura.entity.PagoClinica;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -139,5 +141,18 @@ public class PayClinicalImpl implements IPayClinical {
         } else {
             return null;
         }
+    }
+    public List<ResumenDiarioIngresosDTO> obtenerResumenIngresosDiarios() {
+        List<Object[]> resultados = pagoRepository.findResumenIngresosAgrupadoPorFecha();
+        if (resultados == null || resultados.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return resultados.stream()
+            .map(record -> new ResumenDiarioIngresosDTO(
+                (LocalDate) record[0],      
+                (BigDecimal) record[1],   
+                ((Number) record[2]).longValue()
+            ))
+            .collect(Collectors.toList());
     }
 }

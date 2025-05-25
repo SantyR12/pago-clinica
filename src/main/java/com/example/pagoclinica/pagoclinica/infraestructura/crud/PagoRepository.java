@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface PagoRepository extends JpaRepository<PagoClinica, Long> {
     List<PagoClinica> findByEstado(String estado);
+    
 
     
     List<PagoClinica> findByCitaId(Long citaId);
@@ -22,4 +23,10 @@ public interface PagoRepository extends JpaRepository<PagoClinica, Long> {
 
     @Query("SELECT pc.metodoPago, COUNT(pc) FROM PagoClinica pc GROUP BY pc.metodoPago ORDER BY COUNT(pc) DESC")
     List<Object[]> findMetodosPagoMasUsados();
+
+    @Query("SELECT pc.fechaPago, SUM(pc.monto) AS totalIngresos, COUNT(pc.id) AS numeroPagos " +
+        "FROM PagoClinica pc " +
+        "GROUP BY pc.fechaPago " +
+        "ORDER BY pc.fechaPago DESC")
+    List<Object[]> findResumenIngresosAgrupadoPorFecha();
 }

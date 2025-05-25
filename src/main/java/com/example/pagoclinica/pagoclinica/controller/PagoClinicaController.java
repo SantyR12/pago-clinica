@@ -2,14 +2,21 @@ package com.example.pagoclinica.pagoclinica.controller;
 
 import com.example.pagoclinica.pagoclinica.domain.dto.CitaDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.EstadoPagoCitaRequestDTO;
+import com.example.pagoclinica.pagoclinica.domain.dto.IngresosPorFechaDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PagoDTO;
+import com.example.pagoclinica.pagoclinica.domain.dto.ResumenDiarioIngresosDTO;
 import com.example.pagoclinica.pagoclinica.domain.dto.PacienteDTO; 
 import com.example.pagoclinica.pagoclinica.domain.service.PayClinicalService;
+
+import jakarta.persistence.criteria.CriteriaBuilder.In;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +90,22 @@ public class PagoClinicaController {
         return ResponseEntity.ok(payClinicalService.generarReporteIngresos());
     }
 
+    @GetMapping("/reporte/ingresos/por-fecha")
+    public ResponseEntity<IngresosPorFechaDTO> obtenerIngresosPorFecha(
+            @RequestParam("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate fecha) {
+        IngresosPorFechaDTO ingresos = payClinicalService.obtenerTotalIngresosPorFechaEspecifica(fecha);
+            return ResponseEntity.ok(ingresos);
+    }
+
+    @GetMapping("/reporte/ingresos/desglose-fechas")
+    public ResponseEntity<List<ResumenDiarioIngresosDTO>> obtenerDesgloseIngresosPorFechas() {
+        List<ResumenDiarioIngresosDTO> resumen = payClinicalService.obtenerResumenIngresosDiarios();
+        if (resumen.isEmpty()) {
+            return ResponseEntity.noContent().build(); 
+        }
+        return ResponseEntity.ok(resumen);
+    }
+
     @GetMapping("/pendientes")
     public ResponseEntity<List<PagoDTO>> obtenerPagosPendientes() {
         return ResponseEntity.ok(payClinicalService.obtenerPagosPendientes());
@@ -118,4 +141,5 @@ public class PagoClinicaController {
         PacienteDTO paciente = payClinicalService.obtenerPacienteExternoPorId(id);
         return ResponseEntity.ok(paciente); 
     }
+
 }
