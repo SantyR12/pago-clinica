@@ -46,21 +46,29 @@ Configurar MySQL (Localmente):
 
 Instalación: Asegúrate de tener MySQL Server instalado y en ejecución en tu máquina. Puedes descargarlo desde MySQL Downloads.
 
-Crear Base de Datos y Usuario: Crea una base de datos (ej. pagoclinica_db) y un usuario con los permisos adecuados.
+Crear Base de Datos y Usuario: Crea una base de datos con el nombre de pagoclinica.
 
-CREATE DATABASE pagoclinica_db;
-CREATE USER 'pagouser'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON pagoclinica_db.* TO 'pagouser'@'localhost';
-FLUSH PRIVILEGES;
-
-Configuración en la Aplicación: Modifica el archivo src/main/resources/application.properties o application.yml para configurar la conexión a MySQL. Ejemplo para application.properties:
+Configuración en la Aplicación: Modifica el archivo src/main/resources/application.properties para configurar la conexión a MySQL. Ejemplo para application.properties:
 ```sh
-spring.datasource.url=jdbc:mysql://localhost:3306/pagoclinica_db
-spring.datasource.username=pagouser
-spring.datasource.password=password
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.jpa.hibernate.ddl-auto=update # O 'create' para crear tablas al inicio
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.application.name=pagoclinica
+server.port=8090
+
+
+spring.datasource.url=jdbc:mysql://localhost:3306/pagoclinica?useSSL=false&serverTimezone=UTC
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=San123-1
+
+
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+logging.level.org.springframework.web=DEBUG
+debug=true
+citas.service.url=http://localhost:8082/
 ```
 
 
@@ -426,24 +434,49 @@ pago-clinica/
 │   │   ├── java/
 │   │   │   └── com/
 │   │   │       └── clinica/
-│   │   │           ├── controller/    
-│   │   │           │   └── PagoController.java
-│   │   │           ├── model/          
-│   │   │           │   └── Pago.java
-│   │   │           ├── repository/     
-│   │   │           │   └── PagoRepository.java
-│   │   │           └── service/       
-│   │   │               └── PagoService.java
-│   │   │           └── PagoClinicaApplication.java 
+│   │   │           ├── controller/     
+│   │   │           │   └── PagoClinicaController.java
+│   │   │           ├── domain/     
+│   │   │           │   ├── dto/       
+│   │   │           │   │   ├── CitaDTO.java
+│   │   │           │   │   ├── EstadoPagoCitaRequestDTO.java
+│   │   │           │   │   ├── IngresosPorFechaDTO.java
+│   │   │           │   │   ├── PacienteDTO.java
+│   │   │           │   │   ├── PagoDTO.java
+│   │   │           │   │   └── ResumenDiarioIngresosDTO.java
+│   │   │           │   ├── repository/ 
+│   │   │           │   │   └── IPayClinical.java
+│   │   │           │   └── service/    
+│   │   │           │       └── PayClinicalService.java
+│   │   │           ├── infraestructura/
+│   │   │           │   ├── client/    
+│   │   │           │   │   ├── CitaCliente.java
+│   │   │           │   │   └── PacienteCliente.java
+│   │   │           │   ├── crud/       
+│   │   │           │   │   └── PagoRepository.java
+│   │   │           │   ├── entity/    
+│   │   │           │   │   └── PagoClinica.java
+│   │   │           │   ├── mapper/     
+│   │   │           │   │   └── PagoClinicaMapper.java
+│   │   │           │   └── repositories/ 
+│   │   │           │       └── PayClinicalImpl.java
+│   │   │           └── PagoclinicaApplication.java 
 │   │   └── resources/
-│   │       ├── application.properties 
-│   │       └── static/                 
+│   │       ├── diagrams/            
+│   │       │   ├── secuencial.png
+│   │       │   ├── secuencia2.png
+│   │       │   └── usuario.png
+│   │       └── application.properties  
 │   └── test/
 │       └── java/
 │           └── com/
 │               └── clinica/
-│                   └── PagoClinicaApplicationTests.java # Tests unitarios/integración
-├── .gitignore                      
+│                   └── PagoclinicaApplicationTests.java 
+├── .github/                        
+├── .mvn/                           
+├── mvnw                            
+├── mvnw.cmd                        
+├── pagoulti.postman_collection.json 
 ├── pom.xml                         
-└── README.md                       
+└── README.md                                             
 ```
