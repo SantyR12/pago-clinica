@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "5a9e9bf1-3f92-462f-923c-53ec534e7c10",
+		"name": "pagoulti",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38650242"
+	},
+	"item": [
+		{
+			"name": "Pagos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-10\",\r\n    \"metodoPago\": \"Tarjeta\",\r\n    \"monto\": 1200011,\r\n    \"estadoPago\": \"nulo\",\r\n    \"referencia\": \"REF-PAGO-ABC-123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pagosID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/pagos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post pago",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-26\",\r\n    \"metodoPago\": \"Efectivo\",\r\n    \"monto\": 50000,\r\n    \"estado\": \"Pendiente\", \r\n    \"referencia\": \"REF-PAGO-XYZ-789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put pago",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-26\",\r\n    \"metodoPago\": \"Efectivo\",\r\n    \"monto\": 500001,\r\n    \"estado\": \"Pendiente\", \r\n    \"referencia\": \"REF-PAGO-XYZ-789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PagarPorID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"metodoPago\": \"Tarjeta de Crédito\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/3/pagar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"3",
+						"pagar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "citas externas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-26\",\r\n    \"metodoPago\": \"Efectivo\",\r\n    \"monto\": 50000,\r\n    \"estado\": \"Pendiente\", \r\n    \"referencia\": \"REF-PAGO-XYZ-789\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/citas-externas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"citas-externas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "citas por id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-26\",\r\n    \"metodoPago\": \"Efectivo\",\r\n    \"monto\": 50000,\r\n    \"estado\": \"Pendiente\", \r\n    \"referencia\": \"REF-PAGO-XYZ-789\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/cita/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"cita",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reporte ingresos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-26\",\r\n    \"metodoPago\": \"Efectivo\",\r\n    \"monto\": 50000,\r\n    \"estado\": \"Pendiente\", \r\n    \"referencia\": \"REF-PAGO-XYZ-789\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/reporte/ingresos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"reporte",
+						"ingresos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pagos Pendientes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-26\",\r\n    \"metodoPago\": \"Efectivo\",\r\n    \"monto\": 50000,\r\n    \"estado\": \"Pendiente\", \r\n    \"referencia\": \"REF-PAGO-XYZ-789\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/pendientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"pendientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estado de citas externas",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"estadoPago\": \"Pagado\" // O \"Anulado\", \"Pendiente\" según tu validación\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/citas-externas/1/estado",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"citas-externas",
+						"1",
+						"estado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes externos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citaId\": 1,\r\n    \"pacienteId\": 1,\r\n    \"fechaPago\": \"2025-05-26\",\r\n    \"metodoPago\": \"Efectivo\",\r\n    \"monto\": 50000,\r\n    \"estado\": \"Pendiente\", \r\n    \"referencia\": \"REF-PAGO-XYZ-789\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/pagos/pacientes-externos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"pacientes-externos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ingresos por fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/pagos/reporte/ingresos/por-fecha?fecha=2025-05-10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"reporte",
+						"ingresos",
+						"por-fecha"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2025-05-10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "total de ingresos con fechas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/pagos/reporte/ingresos/desglose-fechas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pagos",
+						"reporte",
+						"ingresos",
+						"desglose-fechas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
