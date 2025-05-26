@@ -34,7 +34,4 @@ public class PagoClinica {
 
     @Column(name = "referencia" ,nullable = false)
     private String referencia;
-    @Column(name = "estadoPago" ,nullable = false)
-    private String estadoPago;
-
 }
