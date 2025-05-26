@@ -73,7 +73,7 @@ citas.service.url=http://localhost:8082/
 
 
 ## Uso REST API
-La API de PagoClinica expone una serie de endpoints RESTful para interactuar con los recursos de pagos, citas y reportes. A continuación, se detallan los endpoints principales, sus métodos HTTP, URLs, ejemplos de cuerpos de solicitud y posibles respuestas, basados en la colección de Postman proporcionada.
+La API de PagoClinica expone una serie de endpoints REST para interactuar con los recursos de pagos, citas y reportes. A continuación, se detallan los endpoints principales, sus métodos HTTP, URLs, ejemplos de cuerpos de solicitud y posibles respuestas, basados en la colección de Postman proporcionada.
 
 ## Pagos
 ### Obtener todos los pagos
