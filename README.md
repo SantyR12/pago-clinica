@@ -410,10 +410,11 @@ Un diagrama de secuencia muestra cómo se comunican los objetos, por medio de la
 
 ## Request GET
 
+![](src/main/resources/diagrams/secuencia1.png)
 
 ## Request POST
 
-
+![](src/main/resources/diagrams/secuencia2.png)
 
 ## Estructura del Proyecto
 La estructura de carpetas utilizada es orientada al Dominio, y se incluye una arquitectura limpia en la que intervienen 3 capas principales: Controladores, Repositorios y los Servicios. Esto nos permite un bajo acoplamiento ya que las dependencias solo se hacen entre la capa contigua de nivel inferior, de esta manera hay independencia entre los módulos.
@@ -425,24 +426,24 @@ pago-clinica/
 │   │   ├── java/
 │   │   │   └── com/
 │   │   │       └── clinica/
-│   │   │           ├── controller/     # Capa de Controladores (API REST)
+│   │   │           ├── controller/    
 │   │   │           │   └── PagoController.java
-│   │   │           ├── model/          # Capa de Dominio / Modelos (Entidades)
+│   │   │           ├── model/          
 │   │   │           │   └── Pago.java
-│   │   │           ├── repository/     # Capa de Repositorios (Acceso a Datos)
+│   │   │           ├── repository/     
 │   │   │           │   └── PagoRepository.java
-│   │   │           └── service/        # Capa de Servicios (Lógica de Negocio)
+│   │   │           └── service/       
 │   │   │               └── PagoService.java
-│   │   │           └── PagoClinicaApplication.java # Clase principal de Spring Boot
+│   │   │           └── PagoClinicaApplication.java 
 │   │   └── resources/
-│   │       ├── application.properties  # Archivo de configuración de la aplicación
-│   │       └── static/                 # Recursos estáticos (si aplica)
+│   │       ├── application.properties 
+│   │       └── static/                 
 │   └── test/
 │       └── java/
 │           └── com/
 │               └── clinica/
 │                   └── PagoClinicaApplicationTests.java # Tests unitarios/integración
-├── .gitignore                      # Archivo para ignorar en Git
-├── pom.xml                         # Archivo de configuración de Maven
-└── README.md                       # Documento de resumen del proyecto (este archivo)
+├── .gitignore                      
+├── pom.xml                         
+└── README.md                       
 ```
