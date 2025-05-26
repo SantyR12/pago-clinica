@@ -57,7 +57,7 @@ server.port=8090
 spring.datasource.url=jdbc:mysql://localhost:3306/pagoclinica?useSSL=false&serverTimezone=UTC
 spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
 spring.datasource.username=root
-spring.datasource.password=San123-1
+spring.datasource.password=root
 
 
 spring.jpa.show-sql=true
